@@ -99,7 +99,7 @@ INT =
  
 (4*exp(-E^2))/3 - (8*E^2*exp(-E^2))/3 + 3679/5000
  
-</pre><p>Donde se tiene que <img src="ASySPracP04CarlosJosafathLopezFavila_eq00017302693956349038.png" alt="$-\frac{8}{12}f^{''}(\varepsilon )$"> es el t&egrave;rmino de error que se debe de sumar o restar a la aproximacion con <img src="ASySPracP04CarlosJosafathLopezFavila_eq14299477224450240299.png" alt="$-1<\varepsilon <1$"></p><p><b>Regla de Simpson</b></p><p>Cuando se tiene que n=2 en el m&egrave;todo de Newton-Cotes se le denomina Regla de Simpson</p><p><img src="ASySPracP04CarlosJosafathLopezFavila_eq15117592300319617854.png" alt="$$\int_{x_{0}}^{x_{2}}f(x)dx= \frac{h}{3}[f(x_{0})+4f(x_{1})+f(x_{2})]-\frac{h^{5}}{90}f^{4'}(\varepsilon$$"></p><p>Donde   <img src="ASySPracP04CarlosJosafathLopezFavila_eq02438704613684864715.png" alt="$x_{0}<\varepsilon <x_{2}$"></p><p>Aplicando la Regla de simpson para encontrar la aproximaci&oacute;n de <img src="ASySPracP04CarlosJosafathLopezFavila_eq08619110315139853428.png" alt="$\int_{-1}^{1}e^{-x^{2}}dx$"></p><p><img src="ASySPracP04CarlosJosafathLopezFavila_eq16114595293879640422.png" alt="$$\int_{-1}^{1}e^{-x^{2}}dx= \frac{h}{3}[e^{-1}+4e^{0}+e^{-1}]-\frac{32}{90}f^{4'}(\varepsilon)$$"></p><pre class="codeinput">syms <span class="string">t</span> <span class="string">E</span>
+</pre><img vspace="5" hspace="5" src="ASySPracP04CarlosJosafathLopezFavila_02.png" alt=""> <p>Donde se tiene que <img src="ASySPracP04CarlosJosafathLopezFavila_eq00017302693956349038.png" alt="$-\frac{8}{12}f^{''}(\varepsilon )$"> es el t&egrave;rmino de error que se debe de sumar o restar a la aproximacion con <img src="ASySPracP04CarlosJosafathLopezFavila_eq14299477224450240299.png" alt="$-1<\varepsilon <1$"></p><p><b>Regla de Simpson</b></p><p>Cuando se tiene que n=2 en el m&egrave;todo de Newton-Cotes se le denomina Regla de Simpson</p><p><img src="ASySPracP04CarlosJosafathLopezFavila_eq15117592300319617854.png" alt="$$\int_{x_{0}}^{x_{2}}f(x)dx= \frac{h}{3}[f(x_{0})+4f(x_{1})+f(x_{2})]-\frac{h^{5}}{90}f^{4'}(\varepsilon$$"></p><p>Donde   <img src="ASySPracP04CarlosJosafathLopezFavila_eq02438704613684864715.png" alt="$x_{0}<\varepsilon <x_{2}$"></p><p>Aplicando la Regla de simpson para encontrar la aproximaci&oacute;n de <img src="ASySPracP04CarlosJosafathLopezFavila_eq08619110315139853428.png" alt="$\int_{-1}^{1}e^{-x^{2}}dx$"></p><p><img src="ASySPracP04CarlosJosafathLopezFavila_eq16114595293879640422.png" alt="$$\int_{-1}^{1}e^{-x^{2}}dx= \frac{h}{3}[e^{-1}+4e^{0}+e^{-1}]-\frac{32}{90}f^{4'}(\varepsilon)$$"></p><pre class="codeinput">syms <span class="string">t</span> <span class="string">E</span>
 ft=exp(-t^2);
 d2ft=diff(ft,4);
 FT=matlabFunction(ft);
@@ -237,14 +237,14 @@ Aprox =
 g=@(t) t.*(heaviside(t+1)-heaviside(t-1));
 </pre><p>y la se&ntilde;al anal&iacute;tica de convoluci&oacute;n que obtuvimos con los c&aacute;lulculos es:</p><pre class="codeinput">r=@(t) (-1+2*exp(-1-t)+t).*(-1&lt;=t &amp; t&lt;0) +((2+exp(1).*(t-1)-t)/exp(1)).*(0&lt;=t &amp; t&lt;1)+((2-t)/exp(1)).*(1&lt;=t &amp; t&lt;2);
 </pre><p>Nuestra funci&oacute;n convconm necesita distintos parametros de entrada: convconm(x,h,i1,f1,i2,f2,f) Donde:</p><div><ul><li>x es la se&ntilde;al x(t)</li><li>h es a se&ntilde;al h(t)</li><li>i1 es el punto de inicio de x(t)</li><li>f1 es el punto final de x(t)</li><li>i2 es el punto de inicio de h(t)</li><li>f2 es el punto final de h(t)</li><li>f es la se&ntilde;al anal&iacute;tica de convoluci&oacute;n</li></ul></div><p>A&ntilde;adimos como parametro la funci&oacute;n anal&iacute;tica para validar los resultados obtenidos con los c&aacute;lculos hechos y la se&ntilde;al obtenida por la funci&oacute;n de convoluci&oacute;n.</p><p>Aplicando Convoluci&oacute;n:</p><pre class="codeinput">convconm(f,g,0,1,-1,1,r)
-</pre><img vspace="5" hspace="5" src="ASySPracP04CarlosJosafathLopezFavila_02.png" alt=""> <p>El proceso de convoluci&oacute;n se ve como:</p><p><img vspace="5" hspace="5" src="convocontinua1.gif" alt=""> </p><h2 id="23">Punto 2: Ejercicio e) de la PR05</h2><p>Para el PR05 reporte la grafica de la simulaci&oacute;n n&uacute;merica de la correalci&oacute;n y compare con el resultado an&aacute;litico que obtuvo para el problema e), esto es, su pr&aacute;ctica tendr&aacute; que incluir una llamada a la funci&oacute;nn convconm y posteriormente se tendr&aacute; que mostrar (mediante el Publish) la gr&aacute;fica tanto de las se&ntilde;ales involucradas como el resultado de su correlaci&oacute;n, y en esta &uacute;ltima graficara su resultado analitico, se tendr&aacute; que incluir el resultado analitico.</p><p>e) Realiza la auto correlaci&oacute;n de</p><p><img src="ASySPracP04CarlosJosafathLopezFavila_eq12915237637791323363.png" alt="$$x(t)=u(t)-2u(t-3)+u(t-4)$$"></p><p>Definici&oacute;n de la funci&oacute;n x(t):</p><pre class="codeinput">x=@(t) heaviside(t)-2*heaviside(t-3)+heaviside(t-4);
+</pre><img vspace="5" hspace="5" src="ASySPracP04CarlosJosafathLopezFavila_03.png" alt=""> <p>El proceso de convoluci&oacute;n se ve como:</p><p><img vspace="5" hspace="5" src="convocontinua1.gif" alt=""> </p><h2 id="23">Punto 2: Ejercicio e) de la PR05</h2><p>Para el PR05 reporte la grafica de la simulaci&oacute;n n&uacute;merica de la correalci&oacute;n y compare con el resultado an&aacute;litico que obtuvo para el problema e), esto es, su pr&aacute;ctica tendr&aacute; que incluir una llamada a la funci&oacute;nn convconm y posteriormente se tendr&aacute; que mostrar (mediante el Publish) la gr&aacute;fica tanto de las se&ntilde;ales involucradas como el resultado de su correlaci&oacute;n, y en esta &uacute;ltima graficara su resultado analitico, se tendr&aacute; que incluir el resultado analitico.</p><p>e) Realiza la auto correlaci&oacute;n de</p><p><img src="ASySPracP04CarlosJosafathLopezFavila_eq12915237637791323363.png" alt="$$x(t)=u(t)-2u(t-3)+u(t-4)$$"></p><p>Definici&oacute;n de la funci&oacute;n x(t):</p><pre class="codeinput">x=@(t) heaviside(t)-2*heaviside(t-3)+heaviside(t-4);
 <span class="comment">%</span>
 <span class="comment">% y por definici&oacute;n definimos x1(t) como x(-t)</span>
 <span class="comment">%</span>
 x1=@(t) heaviside(-t)-2*heaviside(-t-3)+heaviside(-t-4);
 </pre><p>La funci&oacute;n obtenida de forma anal&iacute;tica es:</p><pre class="codeinput">r=@(t) (-t-4).*(-4&lt;=t &amp; t&lt;-3)+(t+2).*(-3&lt;=t &amp; t&lt;-1)+(3*t+4).*(-1&lt;=t &amp; t&lt;0)+(-3*t+4).*(0&lt;=t &amp; t&lt;1)+(-t+2).*(1&lt;=t &amp; t&lt;3)+(t-4).*(3&lt;=t &amp; t&lt;=4);
 </pre><p>Y ocupando la funci&oacute;n convconm:</p><pre class="codeinput">convconm(x,x1,0,4,-4,0,r)
-</pre><img vspace="5" hspace="5" src="ASySPracP04CarlosJosafathLopezFavila_03.png" alt=""> <p><img vspace="5" hspace="5" src="convocontinua2.gif" alt=""> </p><h2 id="30">Punto 3 Convoluci&oacute;n de las se&ntilde;ales (c) con (d) del problema 3.1-1</h2><pre class="codeinput">clear;
+</pre><img vspace="5" hspace="5" src="ASySPracP04CarlosJosafathLopezFavila_04.png" alt=""> <p><img vspace="5" hspace="5" src="convocontinua2.gif" alt=""> </p><h2 id="30">Punto 3 Convoluci&oacute;n de las se&ntilde;ales (c) con (d) del problema 3.1-1</h2><pre class="codeinput">clear;
 n=-3:3;
 a=3.*n;
 b=[0 4 2 0 2 4 0];
@@ -252,13 +252,14 @@ subplot(1,2,1)
 stem(a);
 subplot(1,2,2)
 stem(b);
-</pre><img vspace="5" hspace="5" src="ASySPracP04CarlosJosafathLopezFavila_04.png" alt=""> <p>El resultado teorico nos da:</p><pre class="codeinput">C=[0 -36 -42 -24 -24 -36  0 36 24 24 42 36 0];
+</pre><img vspace="5" hspace="5" src="ASySPracP04CarlosJosafathLopezFavila_05.png" alt=""> <p>El resultado teorico nos da:</p><pre class="codeinput">C=[0 -36 -42 -24 -24 -36  0 36 24 24 42 36 0];
 figure
 stem(-6:6,C)
-</pre><img vspace="5" hspace="5" src="ASySPracP04CarlosJosafathLopezFavila_05.png" alt=""> <pre class="codeinput">convdisc([n;a],[n;b],C);
+hold <span class="string">off</span>
+</pre><img vspace="5" hspace="5" src="ASySPracP04CarlosJosafathLopezFavila_06.png" alt=""> <pre class="codeinput">convdisc([n;a],[n;b],C);
 clc;
 clear;
-</pre><img vspace="5" hspace="5" src="ASySPracP04CarlosJosafathLopezFavila_06.png" alt=""> <img vspace="5" hspace="5" src="ASySPracP04CarlosJosafathLopezFavila_07.png" alt=""> <img vspace="5" hspace="5" src="ASySPracP04CarlosJosafathLopezFavila_08.png" alt=""> <p><img vspace="5" hspace="5" src="P04_4.png" alt=""> </p><p>El proceso de convoluci&oacute;n se ve como:</p><p><img vspace="5" hspace="5" src="ConvDis1.gif" alt=""> </p><h2 id="36">Punto 4 Correlacion de las se&ntilde;ales (c) con (d) del problema 3.1-1</h2><pre class="codeinput">n=-3:3;
+</pre><img vspace="5" hspace="5" src="ASySPracP04CarlosJosafathLopezFavila_07.png" alt=""> <img vspace="5" hspace="5" src="ASySPracP04CarlosJosafathLopezFavila_08.png" alt=""> <p><img vspace="5" hspace="5" src="P04_4.png" alt=""> </p><p>El proceso de convoluci&oacute;n se ve como:</p><p><img vspace="5" hspace="5" src="ConvDis1.gif" alt=""> </p><h2 id="36">Punto 4 Correlacion de las se&ntilde;ales (c) con (d) del problema 3.1-1</h2><pre class="codeinput">n=-3:3;
 a=3.*n;
 b=[0 4 2 0 2 4 0];
 c=fliplr(b);
@@ -835,12 +836,12 @@ stem(b);
 C=[0 -36 -42 -24 -24 -36  0 36 24 24 42 36 0];
 figure
 stem(-6:6,C)
+hold off
 %%
 convdisc([n;a],[n;b],C);
 clc;
 clear;
 %%
-% 
 % <<P04_4.png>>
 %%
 % El proceso de convolución se ve como:
