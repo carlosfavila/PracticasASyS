@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>P04: Convoluci&oacute;n y Correlaci&oacute;n de se&ntilde;ales</title><meta name="generator" content="MATLAB 9.6"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-06-13"><meta name="DC.source" content="ASySPracP04CarlosJosafathLopezFavila.m"><style type="text/css">
+      --><title>P04: Convoluci&oacute;n y Correlaci&oacute;n de se&ntilde;ales</title><meta name="generator" content="MATLAB 9.6"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-06-14"><meta name="DC.source" content="ASySPracP04CarlosJosafathLopezFavila.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -66,7 +66,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1><b>P04: Convoluci&oacute;n y Correlaci&oacute;n de se&ntilde;ales</b></h1><!--introduction--><p><b>INTEGRANTES:</b></p><div><ul><li>Carlos Josafath L&oacute;pez Favila</li><li>Iv&aacute;n Rodrigo Santacruz Bravo</li></ul></div><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1"><b>OBJETIVOS</b></a></li><li><a href="#2"><b>INTRODUCCI&Oacute;N</b></a></li><li><a href="#14">Punto 1: Ejercicio 1 de la PR04</a></li><li><a href="#23">Punto 2: Ejercicio e) de la PR05</a></li><li><a href="#30">Funci&oacute;n convconm para cualquier se&ntilde;al</a></li><li><a href="#32">AVISO</a></li></ul></div><h2 id="1"><b>OBJETIVOS</b></h2><div><ul><li>Conocer m&eacute;todos b&aacute;sicos de integraci&oacute;n num&eacute;rica</li><li>Manipulaci&oacute;n de instrucciones en MATLAB</li><li>Simular convoluciones y correlaciones de se&ntilde;ales continuas</li><li>Simular convoluciones y correlaciones de se&ntilde;ales discretas</li></ul></div><h2 id="2"><b>INTRODUCCI&Oacute;N</b></h2><p><b>M&egrave;todos Num&egrave;ricos</b> Cuando aplicamos la teoria del calculo en la realidad se pueden dar casos donde se tengan problemas cuya solucion no pueda ser encontrada por alguna formula o m&egrave;todo del calculo, es por ello que los matematicos se dieron a la tarea de desarrollar los <b>m&eacute;todos num&eacute;ricos.</b> Se trata de una serie de c&aacute;lculos para acercarnos lo m&aacute;s posible a una soluci&oacute;n num&eacute;rica con una precisi&oacute;n razonablemente buena. Los <b>m&eacute;todos num&eacute;ricos</b> son utilizados en ingenier&iacute;a para facilitar la resoluci&oacute;n de problemas que conllevan una enorme cantidad de c&aacute;lculos, lo que permite ahorrar tiempo.</p><p><b>Teorema fundamental del C&aacute;lculo</b></p><p>El teorema dice asi "Si f(x) es integrable y <img src="ASySPracP04CarlosJosafathLopezFavila_eq14100899522541693629.png" alt="$\frac{\mathrm{d} F(x)}{\mathrm{d} x}=f(x)$"> entonces:</p><p><img src="ASySPracP04CarlosJosafathLopezFavila_eq16817905199163689891.png" alt="$$\int_{a}^{b}f(x)dx=F(b)-F(a)$$"></p><p>En este m&egrave;todo se centra en encontrar aproximaciones a integrales de funciones que no son posibles de resolver por algun m&egrave;todo conocido, como por ejemplo:</p><p><img src="ASySPracP04CarlosJosafathLopezFavila_eq00601181232412590670.png" alt="$$f(x)= e^{-x^{2}}$$"></p><p><img src="ASySPracP04CarlosJosafathLopezFavila_eq07964293655954872043.png" alt="$$\int_{-1}^{1} f(x)dx=\int_{-1}^{1}e^{-x^{2}}dx$$"></p><pre class="codeinput">syms <span class="string">t</span>;
+  </style></head><body><div class="content"><h1><b>P04: Convoluci&oacute;n y Correlaci&oacute;n de se&ntilde;ales</b></h1><!--introduction--><p><b>INTEGRANTES:</b></p><div><ul><li>Carlos Josafath L&oacute;pez Favila</li><li>Iv&aacute;n Rodrigo Santacruz Bravo</li></ul></div><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1"><b>OBJETIVOS</b></a></li><li><a href="#2"><b>INTRODUCCI&Oacute;N</b></a></li><li><a href="#14">Punto 1: Ejercicio 1 de la PR04</a></li><li><a href="#23">Punto 2: Ejercicio e) de la PR05</a></li><li><a href="#30">Punto 3 Convoluci&oacute;n de las se&ntilde;ales (c) con (d) del problema 3.1-1</a></li><li><a href="#36">Punto 4 Correlacion de las se&ntilde;ales (c) con (d) del problema 3.1-1</a></li><li><a href="#42">Punto 5 Convolucion de las se&ntilde;ales (c) con (d) del problema 3.1-1 usando CONV</a></li><li><a href="#43">Ap&eacute;ndices</a></li></ul></div><h2 id="1"><b>OBJETIVOS</b></h2><div><ul><li>Conocer m&eacute;todos b&aacute;sicos de integraci&oacute;n num&eacute;rica</li><li>Manipulaci&oacute;n de instrucciones en MATLAB</li><li>Simular convoluciones y correlaciones de se&ntilde;ales continuas</li><li>Simular convoluciones y correlaciones de se&ntilde;ales discretas</li></ul></div><h2 id="2"><b>INTRODUCCI&Oacute;N</b></h2><p><b>M&egrave;todos Num&egrave;ricos</b> Cuando aplicamos la teoria del calculo en la realidad se pueden dar casos donde se tengan problemas cuya solucion no pueda ser encontrada por alguna formula o m&egrave;todo del calculo, es por ello que los matematicos se dieron a la tarea de desarrollar los <b>m&eacute;todos num&eacute;ricos.</b> Se trata de una serie de c&aacute;lculos para acercarnos lo m&aacute;s posible a una soluci&oacute;n num&eacute;rica con una precisi&oacute;n razonablemente buena. Los <b>m&eacute;todos num&eacute;ricos</b> son utilizados en ingenier&iacute;a para facilitar la resoluci&oacute;n de problemas que conllevan una enorme cantidad de c&aacute;lculos, lo que permite ahorrar tiempo.</p><p><b>Teorema fundamental del C&aacute;lculo</b></p><p>El teorema dice asi "Si f(x) es integrable y <img src="ASySPracP04CarlosJosafathLopezFavila_eq14100899522541693629.png" alt="$\frac{\mathrm{d} F(x)}{\mathrm{d} x}=f(x)$"> entonces:</p><p><img src="ASySPracP04CarlosJosafathLopezFavila_eq16817905199163689891.png" alt="$$\int_{a}^{b}f(x)dx=F(b)-F(a)$$"></p><p>En este m&egrave;todo se centra en encontrar aproximaciones a integrales de funciones que no son posibles de resolver por algun m&egrave;todo conocido, como por ejemplo:</p><p><img src="ASySPracP04CarlosJosafathLopezFavila_eq00601181232412590670.png" alt="$$f(x)= e^{-x^{2}}$$"></p><p><img src="ASySPracP04CarlosJosafathLopezFavila_eq07964293655954872043.png" alt="$$\int_{-1}^{1} f(x)dx=\int_{-1}^{1}e^{-x^{2}}dx$$"></p><pre class="codeinput">syms <span class="string">t</span>;
 ft = exp(-t^2);
 fplot(ft);
 title(<span class="string">'f(t)'</span>);
@@ -237,14 +237,192 @@ Aprox =
 g=@(t) t.*(heaviside(t+1)-heaviside(t-1));
 </pre><p>y la se&ntilde;al anal&iacute;tica de convoluci&oacute;n que obtuvimos con los c&aacute;lulculos es:</p><pre class="codeinput">r=@(t) (-1+2*exp(-1-t)+t).*(-1&lt;=t &amp; t&lt;0) +((2+exp(1).*(t-1)-t)/exp(1)).*(0&lt;=t &amp; t&lt;1)+((2-t)/exp(1)).*(1&lt;=t &amp; t&lt;2);
 </pre><p>Nuestra funci&oacute;n convconm necesita distintos parametros de entrada: convconm(x,h,i1,f1,i2,f2,f) Donde:</p><div><ul><li>x es la se&ntilde;al x(t)</li><li>h es a se&ntilde;al h(t)</li><li>i1 es el punto de inicio de x(t)</li><li>f1 es el punto final de x(t)</li><li>i2 es el punto de inicio de h(t)</li><li>f2 es el punto final de h(t)</li><li>f es la se&ntilde;al anal&iacute;tica de convoluci&oacute;n</li></ul></div><p>A&ntilde;adimos como parametro la funci&oacute;n anal&iacute;tica para validar los resultados obtenidos con los c&aacute;lculos hechos y la se&ntilde;al obtenida por la funci&oacute;n de convoluci&oacute;n.</p><p>Aplicando Convoluci&oacute;n:</p><pre class="codeinput">convconm(f,g,0,1,-1,1,r)
-</pre><img vspace="5" hspace="5" src="ASySPracP04CarlosJosafathLopezFavila_02.png" alt=""> <img vspace="5" hspace="5" src="ASySPracP04CarlosJosafathLopezFavila_03.png" alt=""> <p>El proceso de convoluci&oacute;n se ve como:</p><p><img vspace="5" hspace="5" src="convocontinua1.gif" alt=""> </p><h2 id="23">Punto 2: Ejercicio e) de la PR05</h2><p>Para el PR05 reporte la grafica de la simulaci&oacute;n n&uacute;merica de la correalci&oacute;n y compare con el resultado an&aacute;litico que obtuvo para el problema e), esto es, su pr&aacute;ctica tendr&aacute; que incluir una llamada a la funci&oacute;nn convconm y posteriormente se tendr&aacute; que mostrar (mediante el Publish) la gr&aacute;fica tanto de las se&ntilde;ales involucradas como el resultado de su correlaci&oacute;n, y en esta &uacute;ltima graficara su resultado analitico, se tendr&aacute; que incluir el resultado analitico.</p><p>e) Realiza la auto correlaci&oacute;n de</p><p><img src="ASySPracP04CarlosJosafathLopezFavila_eq12915237637791323363.png" alt="$$x(t)=u(t)-2u(t-3)+u(t-4)$$"></p><p>Definici&oacute;n de la funci&oacute;n x(t):</p><pre class="codeinput">x=@(t) heaviside(t)-2*heaviside(t-3)+heaviside(t-4);
+</pre><img vspace="5" hspace="5" src="ASySPracP04CarlosJosafathLopezFavila_02.png" alt=""> <p>El proceso de convoluci&oacute;n se ve como:</p><p><img vspace="5" hspace="5" src="convocontinua1.gif" alt=""> </p><h2 id="23">Punto 2: Ejercicio e) de la PR05</h2><p>Para el PR05 reporte la grafica de la simulaci&oacute;n n&uacute;merica de la correalci&oacute;n y compare con el resultado an&aacute;litico que obtuvo para el problema e), esto es, su pr&aacute;ctica tendr&aacute; que incluir una llamada a la funci&oacute;nn convconm y posteriormente se tendr&aacute; que mostrar (mediante el Publish) la gr&aacute;fica tanto de las se&ntilde;ales involucradas como el resultado de su correlaci&oacute;n, y en esta &uacute;ltima graficara su resultado analitico, se tendr&aacute; que incluir el resultado analitico.</p><p>e) Realiza la auto correlaci&oacute;n de</p><p><img src="ASySPracP04CarlosJosafathLopezFavila_eq12915237637791323363.png" alt="$$x(t)=u(t)-2u(t-3)+u(t-4)$$"></p><p>Definici&oacute;n de la funci&oacute;n x(t):</p><pre class="codeinput">x=@(t) heaviside(t)-2*heaviside(t-3)+heaviside(t-4);
 <span class="comment">%</span>
 <span class="comment">% y por definici&oacute;n definimos x1(t) como x(-t)</span>
 <span class="comment">%</span>
 x1=@(t) heaviside(-t)-2*heaviside(-t-3)+heaviside(-t-4);
 </pre><p>La funci&oacute;n obtenida de forma anal&iacute;tica es:</p><pre class="codeinput">r=@(t) (-t-4).*(-4&lt;=t &amp; t&lt;-3)+(t+2).*(-3&lt;=t &amp; t&lt;-1)+(3*t+4).*(-1&lt;=t &amp; t&lt;0)+(-3*t+4).*(0&lt;=t &amp; t&lt;1)+(-t+2).*(1&lt;=t &amp; t&lt;3)+(t-4).*(3&lt;=t &amp; t&lt;=4);
 </pre><p>Y ocupando la funci&oacute;n convconm:</p><pre class="codeinput">convconm(x,x1,0,4,-4,0,r)
-</pre><img vspace="5" hspace="5" src="ASySPracP04CarlosJosafathLopezFavila_04.png" alt=""> <p><img vspace="5" hspace="5" src="convocontinua2.gif" alt=""> </p><h2 id="30">Funci&oacute;n convconm para cualquier se&ntilde;al</h2><p><img vspace="5" hspace="5" src="convv1.png" alt=""> </p><p><img vspace="5" hspace="5" src="convv2.PNG" alt=""> </p><p><img vspace="5" hspace="5" src="convv3.png" alt=""> </p><h2 id="32">AVISO</h2><p>Algunos alumnos compa&ntilde;eros que sol&iacute;an cooperar con &eacute;ste equipo han dejado de hacerlo y ahora solo somos dos integrantes, en esta temporada de ex&aacute;menes y trabajos terminales ha sido un poco dificil poder terminar y haberle dedicado todo el tiempo necesario a &eacute;sta pr&aacute;ctica. Sin embargo, entregamos lo poco que pudimos lograr entre los dos, que es la mitad de la pr&aacute;ctica, pero considero que est&aacute; bien hecha. Gracias</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2019a</a><br></p></div><!--
+</pre><img vspace="5" hspace="5" src="ASySPracP04CarlosJosafathLopezFavila_03.png" alt=""> <p><img vspace="5" hspace="5" src="convocontinua2.gif" alt=""> </p><h2 id="30">Punto 3 Convoluci&oacute;n de las se&ntilde;ales (c) con (d) del problema 3.1-1</h2><pre class="codeinput">clear;
+n=-3:3;
+a=3.*n;
+b=[0 4 2 0 2 4 0];
+subplot(1,2,1)
+stem(a);
+subplot(1,2,2)
+stem(b);
+</pre><img vspace="5" hspace="5" src="ASySPracP04CarlosJosafathLopezFavila_04.png" alt=""> <p>El resultado teorico nos da:</p><pre class="codeinput">C=[0 -36 -42 -24 -24 -36  0 36 24 24 42 36 0];
+figure
+stem(-6:6,C)
+</pre><img vspace="5" hspace="5" src="ASySPracP04CarlosJosafathLopezFavila_05.png" alt=""> <pre class="codeinput">convdisc([n;a],[n;b],C);
+clc;
+clear;
+</pre><img vspace="5" hspace="5" src="ASySPracP04CarlosJosafathLopezFavila_06.png" alt=""> <img vspace="5" hspace="5" src="ASySPracP04CarlosJosafathLopezFavila_07.png" alt=""> <img vspace="5" hspace="5" src="ASySPracP04CarlosJosafathLopezFavila_08.png" alt=""> <p><img vspace="5" hspace="5" src="P04_4.png" alt=""> </p><p>El proceso de convoluci&oacute;n se ve como:</p><p><img vspace="5" hspace="5" src="ConvDis1.gif" alt=""> </p><h2 id="36">Punto 4 Correlacion de las se&ntilde;ales (c) con (d) del problema 3.1-1</h2><pre class="codeinput">n=-3:3;
+a=3.*n;
+b=[0 4 2 0 2 4 0];
+c=fliplr(b);
+subplot(1,2,1)
+stem(a);
+subplot(1,2,2)
+stem(c);
+</pre><img vspace="5" hspace="5" src="ASySPracP04CarlosJosafathLopezFavila_09.png" alt=""> <p>El resultado teorico nos da:</p><pre class="codeinput">C=[0 -36 -42 -24 -24 -36  0 36 24 24 42 36 0];
+figure
+stem(-6:6,C)
+</pre><img vspace="5" hspace="5" src="ASySPracP04CarlosJosafathLopezFavila_10.png" alt=""> <pre class="codeinput">convdisc([n;a],[n;c],C)
+</pre><img vspace="5" hspace="5" src="ASySPracP04CarlosJosafathLopezFavila_11.png" alt=""> <img vspace="5" hspace="5" src="ASySPracP04CarlosJosafathLopezFavila_12.png" alt=""> <p><img vspace="5" hspace="5" src="P04_5.png" alt=""> </p><p>El proceso de convoluci&oacute;n se ve como:</p><p><img vspace="5" hspace="5" src="CorrDis1.gif" alt=""> </p><h2 id="42">Punto 5 Convolucion de las se&ntilde;ales (c) con (d) del problema 3.1-1 usando CONV</h2><pre class="codeinput">n=-3:3;
+a=3.*n;
+b=[0 4 2 0 2 4 0];
+x=conv(a,b);
+subplot(1,3,1)
+stem(n,a)
+subplot(1,3,2)
+stem(n,b)
+subplot(1,3,3)
+stem(-6:6,x)
+<span class="comment">%</span>
+</pre><img vspace="5" hspace="5" src="ASySPracP04CarlosJosafathLopezFavila_13.png" alt=""> <h2 id="43">Ap&eacute;ndices</h2><pre class="codeinput"><span class="keyword">function</span> convconm(x,h,i1,f1,i2,f2,f)
+<span class="comment">%i1 es el punto de inicio en t de la se&ntilde;al x(t)</span>
+<span class="comment">%f1 es el punto final en t de la se&ntilde;al x(t)</span>
+<span class="comment">%i2 es el punto de inicio en t de la se&ntilde;al h(t)</span>
+<span class="comment">%f2 es el punto final en t de la se&ntilde;al h(t)</span>
+<span class="comment">%f es la se&ntilde;al del resultado anal&iacute;tico obtenido</span>
+
+T1=f1-i1;<span class="comment">%intervalo de la primer se&ntilde;al finita</span>
+  T2=f2-i2;<span class="comment">%intervalo de la segunda se&ntilde;al finita</span>
+  figure (1) <span class="comment">% Se crea una figura para hacer las gr&aacute;ficas</span>
+  dtau = 0.005; <span class="comment">% Base de los rectangulos para realizar la integral</span>
+  tau = i1+i2-1:dtau:f1+f2+0.5; <span class="comment">% Intervalo de visualizaci&oacute;n del resultado</span>
+  ti = 0; <span class="comment">% Indice para el vector de resultados</span>
+  tvec = i1+i2-0.5:.1:f1+f2+0.5; <span class="comment">% traslaciones de t, cuantas integrales se calculan</span>
+  y = NaN*zeros(1, length (tvec)); <span class="comment">% Resultados de acuerdo a cuantos t</span>
+
+  <span class="comment">% encuentra valores m&aacute;ximos y minimos de las funciones para los limites</span>
+  <span class="comment">% de graficaci&oacute;n</span>
+  l=i1+i2:0.1:f1+f2;
+  A=x(l);
+  B=h(l);
+  C=f(l);
+  max1=max(A);
+  max2=max(B);
+  max3=max(C);
+  min1=min(A);
+  min2=min(B);
+  min3=min(C);
+
+  hFig = figure(1);
+  set(hFig, <span class="string">'Position'</span>, [0 0 1000 1000])
+  filename = <span class="string">'convocontinua.gif'</span>;
+  ttt=1;
+  <span class="keyword">for</span> t = tvec <span class="comment">% Cantidad de traslaciones</span>
+      ti = ti+1; <span class="comment">% Indice para guardar el resultado (indice del tiempo)</span>
+      xh = x(t-tau).*h(tau); <span class="comment">% resultado de la multiplicaci&oacute;n</span>
+      lxh = length(xh); <span class="comment">% longitud del resultado</span>
+      y(ti) = sum(xh.*dtau); <span class="comment">% Base por altura, aproximaci&oacute;n de la integral</span>
+      subplot (3,1,1), <span class="comment">% gr&aacute;fica de 2 x 1 (primera)</span>
+      plot(tau, h(tau), <span class="string">'r-'</span>, t, 0, <span class="string">'ob'</span>); <span class="comment">%graficas</span>
+      axis ([tau(1) tau(end) min2-1 max2+1]); <span class="comment">% l&iacute;mites de los ejes</span>
+      patch([tau(1:end-1); tau(1:end-1); tau(2:end); tau(2:end)],<span class="keyword">...</span>
+      [zeros(1,lxh-1);xh(1:end-1);xh(2:end);zeros(1,lxh-1)],<span class="keyword">...</span>
+      [.8 .8 .8], <span class="string">'edgecolor'</span>, <span class="string">'none'</span>);
+      xlabel(<span class="string">'\tau'</span>); <span class="comment">% Texto del eje X</span>
+      legend(<span class="string">'h(\tau)'</span>,<span class="string">'t'</span>, <span class="string">'h(\tau)x(t-\tau)'</span>)<span class="comment">% Caja de Texto</span>
+      subplot(3,1,2)
+      plot(tau, x(t-tau), <span class="string">'g--'</span>); <span class="comment">%grafica funci&oacute;n m&oacute;vil</span>
+      axis ([tau(1) tau(end) min1-1 max1+1]); <span class="comment">% l&iacute;mites de los ejes</span>
+      xlabel(<span class="string">'\tau'</span>); <span class="comment">% Texto del eje X</span>
+      legend( <span class="string">'x(t-\tau)'</span>)<span class="comment">% Caja de Texto</span>
+      subplot (3, 1, 3)  <span class="comment">% gr&aacute;fica de 2 x 1 (segunda)</span>
+      plot (tau,f(tau),<span class="string">'b'</span>,tvec, y, <span class="string">'k'</span>, tvec (ti), y(ti), <span class="string">'ok'</span>);
+      xlabel (<span class="string">'t'</span>);
+      ylabel (<span class="string">'y(t) = \int h(\tau)x(t-\tau) d\tau'</span>);
+      axis ([tau(1) tau(end) min3-1 max3+1]); <span class="comment">% l&iacute;mites del eje</span>
+      grid; <span class="comment">% malla</span>
+      drawnow; <span class="comment">% efecto de movimiento continuo</span>
+      frame = getframe(hFig);
+      im = frame2im(frame);
+      [imind,cm] = rgb2ind(im,256);
+      <span class="comment">% Write to the GIF File</span>
+        <span class="keyword">if</span> ttt == 1
+          imwrite(imind,cm,filename,<span class="string">'gif'</span>, <span class="string">'Loopcount'</span>,inf);
+        <span class="keyword">else</span>
+          imwrite(imind,cm,filename,<span class="string">'gif'</span>,<span class="string">'WriteMode'</span>,<span class="string">'append'</span>);
+        <span class="keyword">end</span>
+        ttt=ttt+1;
+  <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> convdisc(x1,x2,x4)
+    Tam1 = size(x1(1,:));
+    Tam2 = size(x2(1,:));
+    T1 = Tam1(2);
+    T2 = Tam2(2);
+    T3 = T1+T2-1;
+    vec1 = zeros(1,T1+2*T2-2);
+    vec2 = zeros(1,T1+2*T2-2);
+    Tec2 = -(T2-1):(T1+T2-2);
+    size(vec2);
+    size(Tec2);
+    x3=zeros(2,T3);
+    x3(1,:)=0:T3-1;
+    x3(1,:)=x3(1,:)+x1(1,1)+x2(1,1);
+    vec1(1,T2:T2+T1-1)=x1(2,:);
+    figure (1)
+    hFig = figure(1);
+    set(hFig, <span class="string">'Position'</span>, [0 0 1000 1000])
+    filename = <span class="string">'testAnimated.gif'</span>;
+    ttt=1;
+    <span class="keyword">for</span> m=0:T1+T2-2
+        vec2(1,1+m:T2+m)=fliplr(x2(2,:));
+        x3(2,m+1)=sum(vec1.*vec2);
+        subplot(4,1,4)
+        stem(x3(1,:),x4,<span class="string">'k'</span>,<span class="string">'LineWidth'</span>,3)
+        hold <span class="string">on</span>
+        subplot(4,1,4)
+        stem(x3(1,:),x3(2,:),<span class="string">'r'</span>,<span class="string">'LineWidth'</span>,3)
+        axis([Tec2(1),T1+2*T2-2,  min(x3(2,:))-1 max(x3(2,:))+1])
+        ylim(<span class="string">'auto'</span>)
+        ylabel(<span class="string">'x_3[n]'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16);
+        xlabel(<span class="string">'n'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16);
+        grid <span class="string">on</span>
+        subplot(4,1,1)
+        stem(x2(1,:),x2(2,:),<span class="string">'k'</span>,<span class="string">'LineWidth'</span>,3)
+        ylabel(<span class="string">'x_2[m]'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16);
+        xlabel(<span class="string">'m'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16);
+        title(<span class="string">'CONVOLUCI&oacute;N'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16);
+        grid <span class="string">on</span>
+        axis([Tec2(1),T1+2*T2-2, min(x2(2,:))-1 max(x2(2,:))+1])
+        ylim(<span class="string">'auto'</span>)
+        subplot(4,1,2)
+        stem(x1(1,:),x1(2,:),<span class="string">'b'</span>,<span class="string">'LineWidth'</span>,3)
+        ylabel(<span class="string">'x_1[m]'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16);
+        xlabel(<span class="string">'m'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16);
+        grid <span class="string">on</span>
+        axis([Tec2(1),T1+2*T2-2, min(x1(2,:))-1 max(x1(2,:))+1])
+        ylim(<span class="string">'auto'</span>)
+        subplot(4,1,3)
+        stem(Tec2,vec2(1,:),<span class="string">'g'</span>,<span class="string">'LineWidth'</span>,3)
+        axis([Tec2(1),T1+2*T2-2,min(vec2)-1, max(vec2)+1 ])
+        ylim(<span class="string">'auto'</span>)
+        ylabel(<span class="string">'x_2[n-m]'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16);
+        xlabel(<span class="string">'m'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16);
+        grid <span class="string">on</span>
+        drawnow;
+        pause(0.1)
+        vec2 = zeros(1,T1+2*T2-2);
+        frame = getframe(hFig);
+        im = frame2im(frame);
+        [imind,cm] = rgb2ind(im,256);
+        <span class="comment">% Write to the GIF File</span>
+        <span class="keyword">if</span> ttt == 1
+          imwrite(imind,cm,filename,<span class="string">'gif'</span>, <span class="string">'Loopcount'</span>,inf);
+        <span class="keyword">else</span>
+          imwrite(imind,cm,filename,<span class="string">'gif'</span>,<span class="string">'WriteMode'</span>,<span class="string">'append'</span>);
+        <span class="keyword">end</span>
+        ttt=ttt+1;
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2019a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% *P04: Convolución y Correlación de señales*
 %
@@ -642,24 +820,218 @@ convconm(x,x1,0,4,-4,0,r)
 % 
 % <<convocontinua2.gif>>
 % 
-%% Función convconm para cualquier señal
+
+%% Punto 3 Convolución de las señales (c) con (d) del problema 3.1-1
+%
+clear;
+n=-3:3;
+a=3.*n;
+b=[0 4 2 0 2 4 0];
+subplot(1,2,1)
+stem(a);
+subplot(1,2,2)
+stem(b);
+%%
+% El resultado teorico nos da:
+C=[0 -36 -42 -24 -24 -36  0 36 24 24 42 36 0];
+figure
+stem(-6:6,C)
+%%
+convdisc([n;a],[n;b],C);
+clc;
+clear;
 %%
 % 
-% <<convv1.png>>
+% <<P04_4.png>>
+%%
+% El proceso de convolución se ve como:
+%%
 % 
-% <<convv2.PNG>>
+% <<ConvDis1.gif>>
 % 
+%% Punto 4 Correlacion de las señales (c) con (d) del problema 3.1-1
+%
+n=-3:3;
+a=3.*n;
+b=[0 4 2 0 2 4 0];
+c=fliplr(b);
+subplot(1,2,1)
+stem(a);
+subplot(1,2,2)
+stem(c);
+%%
+% El resultado teorico nos da:
+C=[0 -36 -42 -24 -24 -36  0 36 24 24 42 36 0];
+figure
+stem(-6:6,C)
+%%
+convdisc([n;a],[n;c],C)
+%%
+% <<P04_5.png>>
+%%
+% El proceso de convolución se ve como:
+%%
 % 
-% <<convv3.png>>
+% <<CorrDis1.gif>>
 % 
+%
+%
+%% Punto 5 Convolucion de las señales (c) con (d) del problema 3.1-1 usando CONV
+%
+n=-3:3;
+a=3.*n;
+b=[0 4 2 0 2 4 0];
+x=conv(a,b);
+subplot(1,3,1)
+stem(n,a)
+subplot(1,3,2)
+stem(n,b)
+subplot(1,3,3)
+stem(-6:6,x)
+%
+%% Apéndices
+function convconm(x,h,i1,f1,i2,f2,f)
+%i1 es el punto de inicio en t de la señal x(t)
+%f1 es el punto final en t de la señal x(t)
+%i2 es el punto de inicio en t de la señal h(t)
+%f2 es el punto final en t de la señal h(t)
+%f es la señal del resultado analítico obtenido
 
-%% AVISO
-% Algunos alumnos compañeros que solían cooperar con éste equipo han dejado
-% de hacerlo y ahora solo somos dos integrantes, en esta temporada de
-% exámenes y trabajos terminales ha sido un poco dificil poder terminar y
-% haberle dedicado todo el tiempo necesario a ésta práctica. Sin embargo,
-% entregamos lo poco que pudimos lograr entre los dos, que es la mitad de
-% la práctica, pero considero que está bien hecha. Gracias
+T1=f1-i1;%intervalo de la primer señal finita
+  T2=f2-i2;%intervalo de la segunda señal finita
+  figure (1) % Se crea una figura para hacer las gráficas
+  dtau = 0.005; % Base de los rectangulos para realizar la integral 
+  tau = i1+i2-1:dtau:f1+f2+0.5; % Intervalo de visualización del resultado
+  ti = 0; % Indice para el vector de resultados
+  tvec = i1+i2-0.5:.1:f1+f2+0.5; % traslaciones de t, cuantas integrales se calculan  
+  y = NaN*zeros(1, length (tvec)); % Resultados de acuerdo a cuantos t
+  
+  % encuentra valores máximos y minimos de las funciones para los limites
+  % de graficación
+  l=i1+i2:0.1:f1+f2;
+  A=x(l);
+  B=h(l);
+  C=f(l);
+  max1=max(A);
+  max2=max(B);
+  max3=max(C);
+  min1=min(A);
+  min2=min(B);
+  min3=min(C);
+  
+  hFig = figure(1);
+  set(hFig, 'Position', [0 0 1000 1000])
+  filename = 'convocontinua.gif';
+  ttt=1;
+  for t = tvec % Cantidad de traslaciones
+      ti = ti+1; % Indice para guardar el resultado (indice del tiempo)
+      xh = x(t-tau).*h(tau); % resultado de la multiplicación 
+      lxh = length(xh); % longitud del resultado
+      y(ti) = sum(xh.*dtau); % Base por altura, aproximación de la integral
+      subplot (3,1,1), % gráfica de 2 x 1 (primera)
+      plot(tau, h(tau), 'r-', t, 0, 'ob'); %graficas 
+      axis ([tau(1) tau(end) min2-1 max2+1]); % límites de los ejes
+      patch([tau(1:end-1); tau(1:end-1); tau(2:end); tau(2:end)],...
+      [zeros(1,lxh-1);xh(1:end-1);xh(2:end);zeros(1,lxh-1)],...
+      [.8 .8 .8], 'edgecolor', 'none');
+      xlabel('\tau'); % Texto del eje X
+      legend('h(\tau)','t', 'h(\tau)x(t-\tau)')% Caja de Texto
+      subplot(3,1,2)
+      plot(tau, x(t-tau), 'gREPLACE_WITH_DASH_DASH'); %grafica función móvil
+      axis ([tau(1) tau(end) min1-1 max1+1]); % límites de los ejes
+      xlabel('\tau'); % Texto del eje X
+      legend( 'x(t-\tau)')% Caja de Texto
+      subplot (3, 1, 3)  % gráfica de 2 x 1 (segunda)
+      plot (tau,f(tau),'b',tvec, y, 'k', tvec (ti), y(ti), 'ok');
+      xlabel ('t'); 
+      ylabel ('y(t) = \int h(\tau)x(t-\tau) d\tau');
+      axis ([tau(1) tau(end) min3-1 max3+1]); % límites del eje
+      grid; % malla
+      drawnow; % efecto de movimiento continuo
+      frame = getframe(hFig); 
+      im = frame2im(frame); 
+      [imind,cm] = rgb2ind(im,256);
+      % Write to the GIF File 
+        if ttt == 1 
+          imwrite(imind,cm,filename,'gif', 'Loopcount',inf); 
+        else 
+          imwrite(imind,cm,filename,'gif','WriteMode','append'); 
+        end
+        ttt=ttt+1;
+  end
+end
+  
+function convdisc(x1,x2,x4)
+    Tam1 = size(x1(1,:));
+    Tam2 = size(x2(1,:));
+    T1 = Tam1(2);
+    T2 = Tam2(2);
+    T3 = T1+T2-1;
+    vec1 = zeros(1,T1+2*T2-2);
+    vec2 = zeros(1,T1+2*T2-2);
+    Tec2 = -(T2-1):(T1+T2-2);
+    size(vec2);
+    size(Tec2);
+    x3=zeros(2,T3);
+    x3(1,:)=0:T3-1;
+    x3(1,:)=x3(1,:)+x1(1,1)+x2(1,1);
+    vec1(1,T2:T2+T1-1)=x1(2,:);
+    figure (1)
+    hFig = figure(1);
+    set(hFig, 'Position', [0 0 1000 1000])
+    filename = 'testAnimated.gif';
+    ttt=1;
+    for m=0:T1+T2-2
+        vec2(1,1+m:T2+m)=fliplr(x2(2,:));
+        x3(2,m+1)=sum(vec1.*vec2);
+        subplot(4,1,4)
+        stem(x3(1,:),x4,'k','LineWidth',3)
+        hold on
+        subplot(4,1,4)
+        stem(x3(1,:),x3(2,:),'r','LineWidth',3)
+        axis([Tec2(1),T1+2*T2-2,  min(x3(2,:))-1 max(x3(2,:))+1])
+        ylim('auto')
+        ylabel('x_3[n]','FontWeight','bold','FontSize',16);
+        xlabel('n','FontWeight','bold','FontSize',16);
+        grid on
+        subplot(4,1,1)
+        stem(x2(1,:),x2(2,:),'k','LineWidth',3)
+        ylabel('x_2[m]','FontWeight','bold','FontSize',16);
+        xlabel('m','FontWeight','bold','FontSize',16);
+        title('CONVOLUCIóN','FontWeight','bold','FontSize',16);
+        grid on
+        axis([Tec2(1),T1+2*T2-2, min(x2(2,:))-1 max(x2(2,:))+1])
+        ylim('auto')
+        subplot(4,1,2)
+        stem(x1(1,:),x1(2,:),'b','LineWidth',3)
+        ylabel('x_1[m]','FontWeight','bold','FontSize',16);
+        xlabel('m','FontWeight','bold','FontSize',16);
+        grid on
+        axis([Tec2(1),T1+2*T2-2, min(x1(2,:))-1 max(x1(2,:))+1])
+        ylim('auto')
+        subplot(4,1,3)
+        stem(Tec2,vec2(1,:),'g','LineWidth',3)
+        axis([Tec2(1),T1+2*T2-2,min(vec2)-1, max(vec2)+1 ])
+        ylim('auto')
+        ylabel('x_2[n-m]','FontWeight','bold','FontSize',16);
+        xlabel('m','FontWeight','bold','FontSize',16);
+        grid on
+        drawnow;
+        pause(0.1)
+        vec2 = zeros(1,T1+2*T2-2);
+        frame = getframe(hFig); 
+        im = frame2im(frame); 
+        [imind,cm] = rgb2ind(im,256); 
+        % Write to the GIF File 
+        if ttt == 1 
+          imwrite(imind,cm,filename,'gif', 'Loopcount',inf); 
+        else 
+          imwrite(imind,cm,filename,'gif','WriteMode','append'); 
+        end
+        ttt=ttt+1;
+    end
+end
+
 
 
 ##### SOURCE END #####
